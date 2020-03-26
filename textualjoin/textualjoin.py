@@ -6,6 +6,7 @@ import pandas as pd
 from unidecode import unidecode
 from nltk.corpus import stopwords
 from collections import defaultdict
+from nested_dict import nested_dict
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
@@ -238,15 +239,15 @@ class TextualJoin(object):
                                                                aggregation_keys_arr=self.aggregation_keys_arr,
                                                                text_key=self.text_key)
         
-        in_out_dict = create_unified_dict(in_values=in_values,
-                                          out_values=out_values,
-                                          keys=keys)
+        in_out_dict = self._create_unified_dict(in_values=in_values,
+                                                out_values=out_values,
+                                                keys=keys)
         
         #Join in/out data using cosine similarity
-        in_out_dict_updated = join_in_out_data(corpus=corpus,
-                                               in_out_dict=in_out_dict)
+        in_out_dict_updated = self._join_in_out_data(corpus=corpus,
+                                                     in_out_dict=in_out_dict)
         
         #Make final dataframe
-        self._unified_df = dict_to_df(in_out_dict_updated)
+        self._unified_df = self._dict_to_df(in_out_dict_updated)
         
         return self._unified_df

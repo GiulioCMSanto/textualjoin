@@ -1,0 +1,4 @@
+textualjoin.egg-info/*
+setup.py
+build/*
+dist/*
